@@ -1,7 +1,7 @@
 ---
 parent: Configuration
 nav_order: 15
-description: How to configure aider with a yaml config file.
+description: How to configure aider with a YAML config file.
 ---
 
 # YAML config file
@@ -58,7 +58,7 @@ cog.outl("```")
 # Place in your home dir, or at the root of your git repo.
 ##########################################################
 
-# Note: You can only put OpenAI and Anthropic API keys in the yaml
+# Note: You can only put OpenAI and Anthropic API keys in the YAML
 # config file. Keys for all APIs can be stored in a .env file
 # https://aider.chat/docs/config/dotenv.html
 
@@ -73,39 +73,6 @@ cog.outl("```")
 
 ## Specify the model to use for the main chat
 #model: xxx
-
-## Use claude-3-opus-20240229 model for the main chat
-#opus: false
-
-## Use anthropic/claude-3-7-sonnet-20250219 model for the main chat
-#sonnet: false
-
-## Use claude-3-5-haiku-20241022 model for the main chat
-#haiku: false
-
-## Use gpt-4-0613 model for the main chat
-#4: false
-
-## Use gpt-4o model for the main chat
-#4o: false
-
-## Use gpt-4o-mini model for the main chat
-#mini: false
-
-## Use gpt-4-1106-preview model for the main chat
-#4-turbo: false
-
-## Use gpt-3.5-turbo model for the main chat
-#35turbo: false
-
-## Use deepseek/deepseek-chat model for the main chat
-#deepseek: false
-
-## Use o1-mini model for the main chat
-#o1-mini: false
-
-## Use o1-preview model for the main chat
-#o1-preview: false
 
 ########################
 # API Keys and settings:
@@ -170,6 +137,9 @@ cog.outl("```")
 ## Set the reasoning_effort API parameter (default: not set)
 #reasoning-effort: xxx
 
+## Set the thinking token budget for models that support it. Use 0 to disable. (default: not set)
+#thinking-tokens: xxx
+
 ## Verify the SSL cert when connecting to models (default: True)
 #verify-ssl: true
 
@@ -182,6 +152,9 @@ cog.outl("```")
 ## Use architect edit format for the main chat
 #architect: false
 
+## Enable/disable automatic acceptance of architect changes (default: True)
+#auto-accept-architect: true
+
 ## Specify the model to use for commit messages and chat history summarization (default depends on --model)
 #weak-model: xxx
 
@@ -193,6 +166,9 @@ cog.outl("```")
 
 ## Only work with models that have meta-data available (default: True)
 #show-model-warnings: true
+
+## Check if model accepts settings like reasoning_effort/thinking_tokens (default: True)
+#check-model-accepts-settings: true
 
 ## Soft limit on tokens for chat history, after which summarization begins. If unspecified, defaults to the model's max_chat_history_tokens.
 #max-chat-history-tokens: xxx
@@ -249,19 +225,19 @@ cog.outl("```")
 #stream: true
 
 ## Set the color for user input (default: #00cc00)
-#user-input-color: #00cc00
+#user-input-color: "#00cc00"
 
 ## Set the color for tool output (default: None)
 #tool-output-color: "xxx"
 
 ## Set the color for tool error messages (default: #FF2222)
-#tool-error-color: #FF2222
+#tool-error-color: "#FF2222"
 
 ## Set the color for tool warning messages (default: #FFA500)
-#tool-warning-color: #FFA500
+#tool-warning-color: "#FFA500"
 
 ## Set the color for assistant output (default: #0088ff)
-#assistant-output-color: #0088ff
+#assistant-output-color: "#0088ff"
 
 ## Set the color for the completion menu (default: terminal's default text color)
 #completion-menu-color: "xxx"
@@ -290,6 +266,9 @@ cog.outl("```")
 ## Enable/disable adding .aider* to .gitignore (default: True)
 #gitignore: true
 
+## Enable/disable the addition of files listed in .gitignore to Aider's editing scope.
+#add-gitignore-files: false
+
 ## Specify the aider ignore file (default: .aiderignore in git root)
 #aiderignore: .aiderignore
 
@@ -302,17 +281,23 @@ cog.outl("```")
 ## Enable/disable commits when repo is found dirty (default: True)
 #dirty-commits: true
 
-## Attribute aider code changes in the git author name (default: True)
-#attribute-author: true
+## Attribute aider code changes in the git author name (default: True). If explicitly set to True, overrides --attribute-co-authored-by precedence.
+#attribute-author: xxx
 
-## Attribute aider commits in the git committer name (default: True)
-#attribute-committer: true
+## Attribute aider commits in the git committer name (default: True). If explicitly set to True, overrides --attribute-co-authored-by precedence for aider edits.
+#attribute-committer: xxx
 
 ## Prefix commit messages with 'aider: ' if aider authored the changes (default: False)
 #attribute-commit-message-author: false
 
 ## Prefix all commit messages with 'aider: ' (default: False)
 #attribute-commit-message-committer: false
+
+## Attribute aider edits using the Co-authored-by trailer in the commit message (default: True). If True, this takes precedence over default --attribute-author and --attribute-committer behavior unless they are explicitly set to True.
+#attribute-co-authored-by: true
+
+## Enable/disable git pre-commit hooks with --no-verify (default: False)
+#git-commit-verify: false
 
 ## Commit all pending changes with a suitable commit message, then exit
 #commit: false
@@ -366,6 +351,12 @@ cog.outl("```")
 
 ## Permanently disable analytics
 #analytics-disable: false
+
+## Send analytics to custom PostHog instance
+#analytics-posthog-host: xxx
+
+## Send analytics to custom PostHog project
+#analytics-posthog-project-api-key: xxx
 
 ############
 # Upgrading:
@@ -433,6 +424,9 @@ cog.outl("```")
 #################
 # Other settings:
 
+## Never prompt for or attempt to install Playwright for web scraping (default: False).
+#disable-playwright: false
+
 ## specify a file to edit (can be used multiple times)
 #file: xxx
 ## Specify multiple values like this:
@@ -454,6 +448,9 @@ cog.outl("```")
 
 ## Specify the language to use in the chat (default: None, uses system settings)
 #chat-language: xxx
+
+## Specify the language to use in the commit message (default: None, user language)
+#commit-language: xxx
 
 ## Always say yes to every confirmation
 #yes-always: false
@@ -496,5 +493,44 @@ cog.outl("```")
 
 ## Specify which editor to use for the /editor command
 #editor: xxx
+
+## Print shell completion script for the specified SHELL and exit. Supported shells: bash, tcsh, zsh. Example: aider --shell-completions bash
+#shell-completions: xxx
+
+############################
+# Deprecated model settings:
+
+## Use claude-3-opus-20240229 model for the main chat (deprecated, use --model)
+#opus: false
+
+## Use anthropic/claude-3-7-sonnet-20250219 model for the main chat (deprecated, use --model)
+#sonnet: false
+
+## Use claude-3-5-haiku-20241022 model for the main chat (deprecated, use --model)
+#haiku: false
+
+## Use gpt-4-0613 model for the main chat (deprecated, use --model)
+#4: false
+
+## Use gpt-4o model for the main chat (deprecated, use --model)
+#4o: false
+
+## Use gpt-4o-mini model for the main chat (deprecated, use --model)
+#mini: false
+
+## Use gpt-4-1106-preview model for the main chat (deprecated, use --model)
+#4-turbo: false
+
+## Use gpt-3.5-turbo model for the main chat (deprecated, use --model)
+#35turbo: false
+
+## Use deepseek/deepseek-chat model for the main chat (deprecated, use --model)
+#deepseek: false
+
+## Use o1-mini model for the main chat (deprecated, use --model)
+#o1-mini: false
+
+## Use o1-preview model for the main chat (deprecated, use --model)
+#o1-preview: false
 ```
 <!--[[[end]]]-->

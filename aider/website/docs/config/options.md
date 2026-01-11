@@ -22,19 +22,18 @@ from aider.args import get_md_help
 cog.out(get_md_help())
 ]]]-->
 ```
-usage: aider [-h] [--model] [--opus] [--sonnet] [--haiku] [--4]
-             [--4o] [--mini] [--4-turbo] [--35turbo] [--deepseek]
-             [--o1-mini] [--o1-preview] [--openai-api-key]
-             [--anthropic-api-key] [--openai-api-base]
-             [--openai-api-type] [--openai-api-version]
-             [--openai-api-deployment-id] [--openai-organization-id]
-             [--set-env] [--api-key] [--list-models]
-             [--model-settings-file] [--model-metadata-file]
-             [--alias] [--reasoning-effort]
-             [--verify-ssl | --no-verify-ssl] [--timeout]
-             [--edit-format] [--architect] [--weak-model]
-             [--editor-model] [--editor-edit-format]
+usage: aider [-h] [--model] [--openai-api-key] [--anthropic-api-key]
+             [--openai-api-base] [--openai-api-type]
+             [--openai-api-version] [--openai-api-deployment-id]
+             [--openai-organization-id] [--set-env] [--api-key]
+             [--list-models] [--model-settings-file]
+             [--model-metadata-file] [--alias] [--reasoning-effort]
+             [--thinking-tokens] [--verify-ssl | --no-verify-ssl]
+             [--timeout] [--edit-format] [--architect]
+             [--auto-accept-architect | --no-auto-accept-architect]
+             [--weak-model] [--editor-model] [--editor-edit-format]
              [--show-model-warnings | --no-show-model-warnings]
+             [--check-model-accepts-settings | --no-check-model-accepts-settings]
              [--max-chat-history-tokens]
              [--cache-prompts | --no-cache-prompts]
              [--cache-keepalive-pings] [--map-tokens]
@@ -50,20 +49,26 @@ usage: aider [-h] [--model] [--opus] [--sonnet] [--haiku] [--4]
              [--completion-menu-current-color]
              [--completion-menu-current-bg-color] [--code-theme]
              [--show-diffs] [--git | --no-git]
-             [--gitignore | --no-gitignore] [--aiderignore]
-             [--subtree-only] [--auto-commits | --no-auto-commits]
+             [--gitignore | --no-gitignore]
+             [--add-gitignore-files | --no-add-gitignore-files]
+             [--aiderignore] [--subtree-only]
+             [--auto-commits | --no-auto-commits]
              [--dirty-commits | --no-dirty-commits]
              [--attribute-author | --no-attribute-author]
              [--attribute-committer | --no-attribute-committer]
              [--attribute-commit-message-author | --no-attribute-commit-message-author]
              [--attribute-commit-message-committer | --no-attribute-commit-message-committer]
+             [--attribute-co-authored-by | --no-attribute-co-authored-by]
+             [--git-commit-verify | --no-git-commit-verify]
              [--commit] [--commit-prompt] [--dry-run | --no-dry-run]
              [--skip-sanity-check-repo]
              [--watch-files | --no-watch-files] [--lint]
              [--lint-cmd] [--auto-lint | --no-auto-lint]
              [--test-cmd] [--auto-test | --no-auto-test] [--test]
              [--analytics | --no-analytics] [--analytics-log]
-             [--analytics-disable] [--just-check-update]
+             [--analytics-disable] [--analytics-posthog-host]
+             [--analytics-posthog-project-api-key]
+             [--just-check-update]
              [--check-update | --no-check-update]
              [--show-release-notes | --no-show-release-notes]
              [--install-main-branch] [--upgrade] [--version]
@@ -72,15 +77,19 @@ usage: aider [-h] [--model] [--opus] [--sonnet] [--haiku] [--4]
              [--copy-paste | --no-copy-paste] [--apply]
              [--apply-clipboard-edits] [--exit] [--show-repo-map]
              [--show-prompts] [--voice-format] [--voice-language]
-             [--voice-input-device] [--file] [--read] [--vim]
-             [--chat-language] [--yes-always] [-v] [--load]
-             [--encoding] [--line-endings] [-c] [--env-file]
+             [--voice-input-device] [--disable-playwright] [--file]
+             [--read] [--vim] [--chat-language] [--commit-language]
+             [--yes-always] [-v] [--load] [--encoding]
+             [--line-endings] [-c] [--env-file]
              [--suggest-shell-commands | --no-suggest-shell-commands]
              [--fancy-input | --no-fancy-input]
              [--multiline | --no-multiline]
              [--notifications | --no-notifications]
              [--notifications-command]
              [--detect-urls | --no-detect-urls] [--editor]
+             [--shell-completions] [--opus] [--sonnet] [--haiku]
+             [--4] [--4o] [--mini] [--4-turbo] [--35turbo]
+             [--deepseek] [--o1-mini] [--o1-preview]
 
 ```
 
@@ -97,58 +106,6 @@ Aliases:
 ### `--model MODEL`
 Specify the model to use for the main chat  
 Environment variable: `AIDER_MODEL`  
-
-### `--opus`
-Use claude-3-opus-20240229 model for the main chat  
-Environment variable: `AIDER_OPUS`  
-
-### `--sonnet`
-Use anthropic/claude-3-7-sonnet-20250219 model for the main chat  
-Environment variable: `AIDER_SONNET`  
-
-### `--haiku`
-Use claude-3-5-haiku-20241022 model for the main chat  
-Environment variable: `AIDER_HAIKU`  
-
-### `--4`
-Use gpt-4-0613 model for the main chat  
-Environment variable: `AIDER_4`  
-Aliases:
-  - `--4`
-  - `-4`
-
-### `--4o`
-Use gpt-4o model for the main chat  
-Environment variable: `AIDER_4O`  
-
-### `--mini`
-Use gpt-4o-mini model for the main chat  
-Environment variable: `AIDER_MINI`  
-
-### `--4-turbo`
-Use gpt-4-1106-preview model for the main chat  
-Environment variable: `AIDER_4_TURBO`  
-
-### `--35turbo`
-Use gpt-3.5-turbo model for the main chat  
-Environment variable: `AIDER_35TURBO`  
-Aliases:
-  - `--35turbo`
-  - `--35-turbo`
-  - `--3`
-  - `-3`
-
-### `--deepseek`
-Use deepseek/deepseek-chat model for the main chat  
-Environment variable: `AIDER_DEEPSEEK`  
-
-### `--o1-mini`
-Use o1-mini model for the main chat  
-Environment variable: `AIDER_O1_MINI`  
-
-### `--o1-preview`
-Use o1-preview model for the main chat  
-Environment variable: `AIDER_O1_PREVIEW`  
 
 ## API Keys and settings:
 
@@ -217,6 +174,10 @@ Environment variable: `AIDER_ALIAS`
 Set the reasoning_effort API parameter (default: not set)  
 Environment variable: `AIDER_REASONING_EFFORT`  
 
+### `--thinking-tokens VALUE`
+Set the thinking token budget for models that support it. Use 0 to disable. (default: not set)  
+Environment variable: `AIDER_THINKING_TOKENS`  
+
 ### `--verify-ssl`
 Verify the SSL cert when connecting to models (default: True)  
 Default: True  
@@ -240,6 +201,14 @@ Aliases:
 Use architect edit format for the main chat  
 Environment variable: `AIDER_ARCHITECT`  
 
+### `--auto-accept-architect`
+Enable/disable automatic acceptance of architect changes (default: True)  
+Default: True  
+Environment variable: `AIDER_AUTO_ACCEPT_ARCHITECT`  
+Aliases:
+  - `--auto-accept-architect`
+  - `--no-auto-accept-architect`
+
 ### `--weak-model WEAK_MODEL`
 Specify the model to use for commit messages and chat history summarization (default depends on --model)  
 Environment variable: `AIDER_WEAK_MODEL`  
@@ -259,6 +228,14 @@ Environment variable: `AIDER_SHOW_MODEL_WARNINGS`
 Aliases:
   - `--show-model-warnings`
   - `--no-show-model-warnings`
+
+### `--check-model-accepts-settings`
+Check if model accepts settings like reasoning_effort/thinking_tokens (default: True)  
+Default: True  
+Environment variable: `AIDER_CHECK_MODEL_ACCEPTS_SETTINGS`  
+Aliases:
+  - `--check-model-accepts-settings`
+  - `--no-check-model-accepts-settings`
 
 ### `--max-chat-history-tokens VALUE`
 Soft limit on tokens for chat history, after which summarization begins. If unspecified, defaults to the model's max_chat_history_tokens.  
@@ -415,6 +392,14 @@ Aliases:
   - `--gitignore`
   - `--no-gitignore`
 
+### `--add-gitignore-files`
+Enable/disable the addition of files listed in .gitignore to Aider's editing scope.  
+Default: False  
+Environment variable: `AIDER_ADD_GITIGNORE_FILES`  
+Aliases:
+  - `--add-gitignore-files`
+  - `--no-add-gitignore-files`
+
 ### `--aiderignore AIDERIGNORE`
 Specify the aider ignore file (default: .aiderignore in git root)  
 Default: .aiderignore  
@@ -442,16 +427,14 @@ Aliases:
   - `--no-dirty-commits`
 
 ### `--attribute-author`
-Attribute aider code changes in the git author name (default: True)  
-Default: True  
+Attribute aider code changes in the git author name (default: True). If explicitly set to True, overrides --attribute-co-authored-by precedence.  
 Environment variable: `AIDER_ATTRIBUTE_AUTHOR`  
 Aliases:
   - `--attribute-author`
   - `--no-attribute-author`
 
 ### `--attribute-committer`
-Attribute aider commits in the git committer name (default: True)  
-Default: True  
+Attribute aider commits in the git committer name (default: True). If explicitly set to True, overrides --attribute-co-authored-by precedence for aider edits.  
 Environment variable: `AIDER_ATTRIBUTE_COMMITTER`  
 Aliases:
   - `--attribute-committer`
@@ -472,6 +455,22 @@ Environment variable: `AIDER_ATTRIBUTE_COMMIT_MESSAGE_COMMITTER`
 Aliases:
   - `--attribute-commit-message-committer`
   - `--no-attribute-commit-message-committer`
+
+### `--attribute-co-authored-by`
+Attribute aider edits using the Co-authored-by trailer in the commit message (default: True). If True, this takes precedence over default --attribute-author and --attribute-committer behavior unless they are explicitly set to True.  
+Default: True  
+Environment variable: `AIDER_ATTRIBUTE_CO_AUTHORED_BY`  
+Aliases:
+  - `--attribute-co-authored-by`
+  - `--no-attribute-co-authored-by`
+
+### `--git-commit-verify`
+Enable/disable git pre-commit hooks with --no-verify (default: False)  
+Default: False  
+Environment variable: `AIDER_GIT_COMMIT_VERIFY`  
+Aliases:
+  - `--git-commit-verify`
+  - `--no-git-commit-verify`
 
 ### `--commit`
 Commit all pending changes with a suitable commit message, then exit  
@@ -558,6 +557,14 @@ Environment variable: `AIDER_ANALYTICS_LOG`
 Permanently disable analytics  
 Default: False  
 Environment variable: `AIDER_ANALYTICS_DISABLE`  
+
+### `--analytics-posthog-host ANALYTICS_POSTHOG_HOST`
+Send analytics to custom PostHog instance  
+Environment variable: `AIDER_ANALYTICS_POSTHOG_HOST`  
+
+### `--analytics-posthog-project-api-key ANALYTICS_POSTHOG_PROJECT_API_KEY`
+Send analytics to custom PostHog project  
+Environment variable: `AIDER_ANALYTICS_POSTHOG_PROJECT_API_KEY`  
 
 ## Upgrading:
 
@@ -674,6 +681,11 @@ Environment variable: `AIDER_VOICE_INPUT_DEVICE`
 
 ## Other settings:
 
+### `--disable-playwright`
+Never prompt for or attempt to install Playwright for web scraping (default: False).  
+Default: False  
+Environment variable: `AIDER_DISABLE_PLAYWRIGHT`  
+
 ### `--file FILE`
 specify a file to edit (can be used multiple times)  
 Environment variable: `AIDER_FILE`  
@@ -690,6 +702,10 @@ Environment variable: `AIDER_VIM`
 ### `--chat-language CHAT_LANGUAGE`
 Specify the language to use in the chat (default: None, uses system settings)  
 Environment variable: `AIDER_CHAT_LANGUAGE`  
+
+### `--commit-language COMMIT_LANGUAGE`
+Specify the language to use in the commit message (default: None, user language)  
+Environment variable: `AIDER_COMMIT_LANGUAGE`  
 
 ### `--yes-always`
 Always say yes to every confirmation  
@@ -775,4 +791,73 @@ Aliases:
 ### `--editor VALUE`
 Specify which editor to use for the /editor command  
 Environment variable: `AIDER_EDITOR`  
+
+### `--shell-completions SHELL`
+Print shell completion script for the specified SHELL and exit. Supported shells: bash, tcsh, zsh. Example: aider --shell-completions bash  
+Environment variable: `AIDER_SHELL_COMPLETIONS`  
+
+## Deprecated model settings:
+
+### `--opus`
+Use claude-3-opus-20240229 model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_OPUS`  
+
+### `--sonnet`
+Use anthropic/claude-3-7-sonnet-20250219 model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_SONNET`  
+
+### `--haiku`
+Use claude-3-5-haiku-20241022 model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_HAIKU`  
+
+### `--4`
+Use gpt-4-0613 model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_4`  
+Aliases:
+  - `--4`
+  - `-4`
+
+### `--4o`
+Use gpt-4o model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_4O`  
+
+### `--mini`
+Use gpt-4o-mini model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_MINI`  
+
+### `--4-turbo`
+Use gpt-4-1106-preview model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_4_TURBO`  
+
+### `--35turbo`
+Use gpt-3.5-turbo model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_35TURBO`  
+Aliases:
+  - `--35turbo`
+  - `--35-turbo`
+  - `--3`
+  - `-3`
+
+### `--deepseek`
+Use deepseek/deepseek-chat model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_DEEPSEEK`  
+
+### `--o1-mini`
+Use o1-mini model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_O1_MINI`  
+
+### `--o1-preview`
+Use o1-preview model for the main chat (deprecated, use --model)  
+Default: False  
+Environment variable: `AIDER_O1_PREVIEW`  
 <!--[[[end]]]-->
